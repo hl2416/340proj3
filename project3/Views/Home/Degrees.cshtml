@@ -1,0 +1,67 @@
+﻿@model project3.Models.DegreesRootModel
+@{
+    ViewData["Title"] = "Degrees";
+}
+
+<!-- The Degrees page that pastes all the data retrieved from the online api for degrees -->
+<div class="page">
+    <!-- Page Title -->
+    <h1><b>Degrees</b></h1><hr />
+
+    <!-- Undergraduate Degrees with modal jquery plugin -->
+    <h3>Undergraduate Degrees</h3>
+    @foreach (var uDegree in Model.undergraduate)
+    {
+        <div id="buttons"><a href="#@uDegree.degreeName" rel="modal:open">@uDegree.title</a></div>
+        <div id="@uDegree.degreeName" class="modal">
+            <div>@uDegree.title</div><hr />
+            <div>@uDegree.description</div><hr />
+            <div> Concentrations </div>
+            @foreach (var con in @uDegree.concentrations)
+            {
+                <li>@con</li>
+            }
+            <hr /><div id="buttons" style="text-align:center"><a href="#" rel="modal:close">Close</a></div>
+        </div>
+    }
+    <!-- Graduate Degrees with modal jquery plugin -->
+    <hr /><h3>Graduate Degrees</h3>
+    @foreach (var gDegree in Model.graduate)
+    {
+        @if (@gDegree.title is not null & @gDegree.description is not null)
+        {
+            <div id="buttons"><a href="#@gDegree.degreeName" rel="modal:open">@gDegree.title</a></div>
+            <div id="@gDegree.degreeName" class="modal">
+                <div>@gDegree.title</div><hr />
+                <div>@gDegree.description</div><hr />
+                @if (@gDegree.concentrations is not null)
+                {
+                    @foreach (var con in @gDegree.concentrations)
+                    {
+                        <li>@con</li>
+                    }
+                }
+                <hr /><div id="buttons" style="text-align:center"><a href="#" rel="modal:close">Close</a></div>
+            </div>
+        }
+        <!-- Certificates -->
+        @if (@gDegree.availableCertificates is not null)
+        {
+            <div>
+                <hr /><h3>Graduate Advanced Certificates</h3>
+                @foreach (var cert in @gDegree.availableCertificates)
+                {
+                    <li>@cert</li>
+                }
+            </div>
+        }
+    }
+</div>
+
+<!-- Modal JQuery Plugin -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+@section Scripts
+{
+    <!-- JQuery Modal File from https://github.com/kylefox/jquery-modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+}

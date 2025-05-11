@@ -1,0 +1,55 @@
+﻿@model project3.Models.StaffRootModel
+@{
+    ViewData["Title"] = "iSchool Staff";
+}
+
+<!-- Staff page that checks for empty strings and null with modal -->
+<div class="page">
+    <h1><b>iSchool Staff</b></h1>
+
+    @foreach (var staff in Model.staff)
+    {
+
+        <div style="min-height:260px;width:200px;display:inline-table">
+            <div class="thumbnail">
+                <img src="@staff.imagePath" atl="pic" style="width:200px;height:200px" />
+                <div id="buttons" style="margin-top:30px"><a href="#@staff.username" rel="modal:open">@staff.name</a></div>
+            </div>
+            <div id="@staff.username" class="modal" style="font-size:12px">
+                <div style="text-align:center"><img src="@staff.imagePath" atl="pic" style="width:150px;height:150px" /></div><hr />
+                <div>@staff.name, @staff.title</div><hr />
+                @if (staff.tagline != "")
+                {
+                    <div>@staff.tagline</div><hr />
+                }
+                <div>Interest Area: @staff.interestArea</div><hr />
+                <div>Office: @staff.office</div><hr />
+                @if (staff.website != "")
+                {
+                    <a href="@staff.website" target="_blank">Website</a><hr />
+                }
+                @if (staff.phone != "" & staff.phone != null)
+                {
+                    <a href="tel:@staff.phone">@staff.phone</a><hr />
+                }
+                <a href="mailto:@staff.email">@staff.email</a><hr />
+                @if (staff.twitter != "" & staff.twitter != null)
+                {
+                    <a href="https://twitter.com/@staff.twitter" target="_blank">Twitter</a><hr />
+                }
+                @if (staff.facebook != "" & staff.facebook != null)
+                {
+                    <a href="https://facebook.com/@staff.facebook" target="_blank">Facebook</a><hr />
+                }
+                <div id="buttons" style="text-align:center"><a href="#" rel="modal:close">Close</a></div>
+            </div>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+@section Scripts
+{
+    <!-- JQuery Modal File from https://github.com/kylefox/jquery-modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+}

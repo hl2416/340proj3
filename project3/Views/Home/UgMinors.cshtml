@@ -1,0 +1,36 @@
+﻿@model project3.Models.UgMinorsRootModel
+@{
+    ViewData["Title"] = "Undergraduate Minors";
+}
+
+<!-- Minors page with modal -->
+<div class="page" style="margin-top: 5%">
+    <h1><b>Undergraduate Minors</b></h1><hr />
+
+    @foreach (var ugMinor in Model.ugMinors)
+    {
+        <div id="buttons"><a href="#@ugMinor.name" rel="modal:open">@ugMinor.title</a></div>
+        <div id="@ugMinor.name" class="modal" style="font-size:12px">
+            <div>@ugMinor.name</div><hr />
+            <div>@ugMinor.title</div><hr />
+            <div>@ugMinor.description</div><hr />
+            @foreach (var courses in @ugMinor.courses)
+            {
+                <li>@courses</li>
+            }
+            @if (ugMinor.note != "")
+            {
+                <hr />@ugMinor.note
+            }
+            <hr />
+            <div id="buttons" style="text-align:center"><a href="#" rel="modal:close">Close</a></div>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+@section Scripts
+{
+    <!-- JQuery Modal File from https://github.com/kylefox/jquery-modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+}

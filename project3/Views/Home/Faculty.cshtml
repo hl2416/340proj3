@@ -1,0 +1,55 @@
+﻿@model project3.Models.FacultyRootModel
+@{
+    ViewData["Title"] = "iSchool Faculty";
+}
+
+<!-- Faculty page that checks for empty strings and null with modal -->
+<div class="page">
+    <h1><b>iSchool Faculty</b></h1>
+
+    @foreach (var faculty in Model.faculty)
+    {
+
+        <div style="min-height:260px;width:200px;display:inline-table">
+            <div class="thumbnail">
+                <img src="@faculty.imagePath" atl="pic" style="width:200px;height:200px" />
+                <div id="buttons" style="margin-top:30px"><a href="#@faculty.username" rel="modal:open">@faculty.name</a></div>
+            </div>
+            <div id="@faculty.username" class="modal" style="font-size:12px">
+                <div style="text-align:center"><img src="@faculty.imagePath" atl="pic" style="width:150px;height:150px" /></div><hr />
+                <div>@faculty.name, @faculty.title</div><hr />
+                @if (faculty.tagline != "")
+                {
+                    <div>@faculty.tagline</div><hr />
+                }
+                <div>Interest Area: @faculty.interestArea</div><hr />
+                <div>Office: @faculty.office</div><hr />
+                @if (faculty.website != "")
+                {
+                    <a href="@faculty.website" target="_blank">Website</a><hr />
+                }
+                @if (faculty.phone != "" & faculty.phone != null)
+                {
+                    <a href="tel:@faculty.phone">@faculty.phone</a><hr />
+                }
+                <a href="mailto:@faculty.email">@faculty.email</a><hr />
+                @if (faculty.twitter != "" & faculty.twitter != null)
+                {
+                    <a href="https://twitter.com/@faculty.twitter" target="_blank">Twitter</a><hr />
+                }
+                @if (faculty.facebook != "" & faculty.facebook != null)
+                {
+                    <a href="https://facebook.com/@faculty.facebook" target="_blank">Facebook</a><hr />
+                }
+                <div id="buttons" style="text-align:center"><a href="#" rel="modal:close">Close</a></div>
+            </div>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+@section Scripts
+{
+    <!-- JQuery Modal File from https://github.com/kylefox/jquery-modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+}

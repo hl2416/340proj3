@@ -1,0 +1,14 @@
+﻿@model project3.Models.AboutRootModel
+@{
+    ViewData["Title"] = "About our iSchool";
+}
+
+<!-- C# and HTML for the About page that gets the title, description, quote, and quoteAuthor -->
+<div class="page" style="margin-top:8%">
+    <h1><b>@Model.About.title</b></h1><hr />
+    <section class="about">
+        <p style="font-size:18px">@Model.About.description</p><hr />
+        <p><i>"@Model.About.quote"</i></p>
+        <p>--- <i>@Model.About.quoteAuthor</i> ---</p>
+    </section>
+</div>

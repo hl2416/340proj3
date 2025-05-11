@@ -1,0 +1,113 @@
+﻿@model project3.Models.EmploymentRootModel
+@{
+    ViewData["Title"] = "Employment";
+}
+
+<!-- Employment page that pulls all the items in Employment online -->
+<div class="page">
+    <!-- Page Title -->
+    <h1><b>@Model.introduction.title</b></h1><hr />
+
+    <div>
+        <!-- introduction -->
+        @foreach (var content in Model.introduction.content)
+        {
+            <h3>@content.title</h3>
+            @content.description<hr />
+        }
+
+        <!-- Degree Statistics -->
+        <h3>@Model.degreeStatistics.title</h3>
+        @foreach (var stat in Model.degreeStatistics.statistics)
+        {
+            <li><b>@stat.value</b> @stat.description</li>
+        }
+
+        <!-- Employers -->
+        <hr /><h3>@Model.employers.title</h3>
+        @foreach (var empName in Model.employers.employerNames)
+        {
+            <li>@empName</li>
+        }
+
+        <!-- Careers -->
+        <hr /><h3>@Model.careers.title</h3>
+        @foreach (var carName in Model.careers.careerNames)
+        {
+            <li>@carName</li>
+        }
+
+        <!-- Coop Table with modal and datatable jquery plugin -->
+        <hr /><div id="buttons"><a href="#cp" rel="modal:open">View Co-ops</a></div>
+        <div id="cp" class="modal" style="font-size:10px">
+            <table id="coT">
+                <thead>
+                    <tr>
+                        <th> Employer </th>
+                        <th> Degree </th>
+                        <th> City </th>
+                        <th> Term </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var coopInf in Model.coopTable.coopInformation)
+                    {
+                        <tr>
+                            <td>@coopInf.employer</td>
+                            <td>@coopInf.degree</td>
+                            <td>@coopInf.city</td>
+                            <td>@coopInf.term</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div id="buttons" style="text-align:center"><a href="#" rel="modal:close">Close</a></div>
+        </div>
+
+        <!-- Employment Table with modal and datatable jquery plugin -->
+        <div id="buttons"><a href="#emp" rel="modal:open">View Employers</a></div>
+        <div id="emp" class="modal" style="font-size:10px">
+            <table id="empT">
+                <thead>
+                    <tr>
+                        <th> Employer </th>
+                        <th> Degree </th>
+                        <th> City </th>
+                        <th> Title </th>
+                        <th> Start Date </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var empInf in Model.employmentTable.professionalEmploymentInformation)
+                    {
+                        <tr>
+                            <td>@empInf.employer</td>
+                            <td>@empInf.degree</td>
+                            <td>@empInf.city</td>
+                            <td>@empInf.title</td>
+                            <td>@empInf.startDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div id="buttons" style="text-align:center"><a href="#" rel="modal:close">Close</a></div>
+        </div>
+    </div>
+</div>
+
+<!-- The JQuery Plugins modal and datatable along with the script for creating the datatable -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+@section Scripts
+{
+    <!-- JQuery Modal File from https://github.com/kylefox/jquery-modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <!-- Data Tables File from https://datatables.net/ -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#coT").DataTable();
+            $("#empT").DataTable();
+        });
+    </script>
+}
